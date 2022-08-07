@@ -1,20 +1,16 @@
 var template = require('./template.js');
 var db = require('./db');
-var qs = require('querystring');
 var sanitizeHTML = require('sanitize-html');
 
 exports.home = function (request, response) {
-    db.query('SELECT * FROM topic', function (error, topics) {
-        // console.log(topics);
-        var title = 'Welcome';
-        var description = 'Hello, Node.js';
-        var list = template.list(topics);
-        var html = template.HTML(title, list,
-            `<h2>${title}</h2>${description}`,
-            `<a href="/create">create</a>`
-        );
-        response.send(html);
-    });
+  var title = 'Welcome';
+  var description = 'Hello, Node.js';
+  var list = template.list(request.list);
+  var html = template.HTML(title, list,
+    `<h2>${title}</h2>${description}`,
+    `<a href="/create">create</a>`
+  );
+  response.send(html);
 }
 
 exports.page = function (request, response) {
@@ -71,19 +67,13 @@ exports.create = function (request, response) {
 }
 
 exports.create_process = function (request, response) {
-    var body = '';
-    request.on('data', function(data){
-        body = body + data;
-    });
-    request.on('end', function () {
-      var post = qs.parse(body);
-      db.query(`INSERT INTO topic (title, description, created, author_id) 
-          VALUES(?,?,NOW(), ?)`, [post.title, post.description, post.author],
-        function (error, result) {
-          if (error) throw error;          
-          response.redirect(`/page/${result.insertId}`);
-      });
-    });
+  var post = request.body;
+  db.query(`INSERT INTO topic (title, description, created, author_id) 
+      VALUES(?,?,NOW(), ?)`, [post.title, post.description, post.author],
+    function (error, result) {
+      if (error) throw error;          
+      response.redirect(`/page/${result.insertId}`);
+  });
 }
 
 exports.update = function (request, response) {
@@ -120,32 +110,19 @@ exports.update = function (request, response) {
 }
 
 exports.update_process = function (request, response) {
-    var body = '';
-    request.on('data', function(data){
-        body = body + data;
-    });
-    request.on('end', function () {
-      var post = qs.parse(body);
-
-      db.query(`UPDATE topic SET title=?, description=?, author_id=? WHERE id=?`, [post.title, post.description, post.author, post.id],
-        function (error, result) {
-          if (error) throw error;
-          response.redirect(`/page/${post.id}`);
-        });
+  var post = request.body;
+  db.query(`UPDATE topic SET title=?, description=?, author_id=? WHERE id=?`, [post.title, post.description, post.author, post.id],
+    function (error, result) {
+      if (error) throw error;
+      response.redirect(`/page/${post.id}`);
     });
 }
 
 exports.delete_process = function (request, response) {
-    var body = '';
-    request.on('data', function(data){
-        body = body + data;
-    });
-    request.on('end', function(){
-        var post = qs.parse(body);
-        db.query(`DELETE FROM topic WHERE id=?`, [post.id],
-        function (error, result) {
-          if (error) throw error;          
-          response.redirect(`/`);
-        });
+  var post = request.body;
+  db.query(`DELETE FROM topic WHERE id=?`, [post.id],
+    function (error, result) {
+      if (error) throw error;
+      response.redirect(`/`);
     });
 }
