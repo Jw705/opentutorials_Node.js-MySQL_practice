@@ -9,7 +9,8 @@ module.exports = {
       <title>WEB1 - ${title}</title>
       <meta charset="utf-8">
     </head>
-    <body>
+    <body> 
+      <a href="/auth/login">login</a>
       <h1><a href="/">WEB</a></h1>
       <a href="/author">author</a>
       ${list}
