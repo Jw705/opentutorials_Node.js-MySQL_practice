@@ -1,5 +1,6 @@
 var template = require('./template.js');
 var db = require('./db');
+var auth = require('./auth');
 var qs = require('querystring');
 var sanitizeHTML = require('sanitize-html');
 
@@ -31,7 +32,8 @@ exports.home = function (request, response) {
                     </p>
                 </form>
                 `,
-                ``
+                ``,
+                auth.statusUI(request, response)
             );
             response.writeHead(200);
             response.end(html);
@@ -88,7 +90,7 @@ exports.update = function (request, response) {
                       <input type="submit">
                     </p>
                 </form>
-                `, ``
+                `, ``, auth.statusUI(request, response)
                 );
                 response.writeHead(200);
                 response.end(html);
