@@ -9,16 +9,6 @@ const port = 3000;
 const helmet = require("helmet");
 app.use(helmet());
 
-var bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }))
-
-app.use(function(request,response,next){
-  db.query('SELECT * FROM topic', function (error, topics) {
-    request.list=topics;    
-    next();
-  });
-})
-
 // 메인페이지
 app.get('/', (req, res) => {
   topic.home(req, res);
@@ -67,7 +57,3 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-
-app.use(function(req, res, next) {
-  res.status(404).send('Sorry cant find that!');
-});
