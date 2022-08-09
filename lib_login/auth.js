@@ -8,13 +8,14 @@ var db = require('./db');
 router.get('/login', function (request, response) {
     var title = '로그인';
     var html = template.HTML(title, ``, `
+            <h2>로그인</h2>
             <form action="/auth/login_process" method="post">
-            <p><input type="text" name="username" placeholder="이름(ex: 홍길동)"></p>
-            <p><input type="password" name="pwd" placeholder="01012345678"></p>
-            <p><input type="submit" value="login"></p>
+            <p><input class="login" type="text" name="username" placeholder="이름(ex: 홍길동)"></p>
+            <p><input class="login" type="password" name="pwd" placeholder="전화번호(ex: 01012345678)"></p>
+            <p><input class="btn" type="submit" value="로그인"></p>
             </form>            
             <p>계정이 없으신가요?  <a href="/auth/register">회원가입</a></p> 
-        `, '');
+        `, '', '');
     response.send(html);
 });
 
@@ -57,14 +58,15 @@ router.get('/logout', function (request, response) {
 router.get('/register', function(request, response) {
     var title = '회원가입';    
     var html = template.HTML(title, ``, `
+    <h2>회원가입</h2>
     <form action="/auth/register_process" method="post">
-    <p><input type="text" name="username" placeholder="이름(ex: 홍길동)"></p>
-    <p><input type="password" name="pwd" placeholder="비밀번호"></p>    
-    <p><input type="password" name="pwd2" placeholder="비밀번호 재확인"></p>
-    <p><input type="submit" value="제출"></p>
+    <p><input class="login" type="text" name="username" placeholder="아이디"></p>
+    <p><input class="login" type="password" name="pwd" placeholder="비밀번호"></p>    
+    <p><input class="login" type="password" name="pwd2" placeholder="비밀번호 재확인"></p>
+    <p><input class="btn" type="submit" value="제출"></p>
     </form>            
-    <p><a href="/auth/login">로그인화면으로 돌아가기</a></p> 
-    `, '');
+    <p><a href="/auth/login">로그인화면으로 돌아가기</a></p>
+    `, '', '');
     response.send(html);
 });
  

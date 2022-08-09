@@ -8,6 +8,8 @@ var account = require('./lib_login/account');
 var authRouter = require('./lib_login/auth');
 var authCheck = require('./lib_login/authCheck.js');
 
+var template = require('./lib_login/template.js');
+
 const app = express()
 const port = 3000
 
@@ -35,7 +37,15 @@ app.use('/auth', authRouter);
 
 // 메인 페이지
 app.get('/main', (req, res) => {
-  account.home(req, res);
+  //account.home(req, res);
+  var title = 'Welcome';
+  var html = template.HTML(title, ``, ``,
+    `<hr>
+        <h2>메인 페이지에 오신 것을 환영합니다</h2>
+        <p>로그인에 성공하셨습니다.</p>`,
+    authCheck.statusUI(req, res)
+  );
+  res.send(html);
 })
 
 app.listen(port, () => {

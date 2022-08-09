@@ -6,5 +6,5 @@ var db = mysql.createConnection({
     database: 'testndrm'
 });
 db.connect();
-
+/**/
 module.exports = db;

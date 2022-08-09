@@ -9,7 +9,8 @@ exports.home = function (request, response) {
         var title = 'Welcome';
         var description = 'Hello, Node.js';
         var html = template.HTML(title, ``, ``,
-            `<h2>메인페이지 오신것을 환영합니다</h2>
+            `<hr>
+            <h2>메인 페이지에 오신 것을 환영합니다</h2>
             <p>이 페이지에 도착하셨다면 당신은 로그인에 성공한 것입니다</p>`,            
             authCheck.statusUI(request, response)
         );

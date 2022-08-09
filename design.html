@@ -1,12 +1,10 @@
-module.exports = {
-  HTML: function (title, list, body, control, authStatusUI) {
-    return `
-    <!doctype html>
-    <html>
-    <head>    
-      <title>Login TEST - ${title}</title>
-      <meta charset="utf-8">
-      <style>
+<!doctype html>
+<html>
+
+<head>
+    <title>Login TEST - ${title}</title>
+    <meta charset="utf-8">
+    <style>
         @import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
         @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
@@ -65,16 +63,19 @@ module.exports = {
             background-color: #595787;
         }
     </style>
-    </head>
-    <body>
-      <div class="background">
-        ${authStatusUI}
-        ${list}
-        ${control}
-        ${body}
-      </div>
-    </body>
-    </html>
-    `;
-  }
-}
+</head>
+
+<body>
+    <br>
+    <div class="background">
+        <h2>로그인</h2>
+        <form action="/update_process" method="post">
+            <p><input class="login" type="text" name="username" placeholder="이름(ex: 홍길동)"></p>
+            <p><input class="login" type="password" name="pwd" placeholder="전화번호(ex: 01012345678)"></p>
+            <p><input class="btn" type="submit" value="로그인"></p>
+        </form>
+        <p>계정이 없으신가요? <a href="/auth/register">회원가입</a></p>
+    </div>
+</body>
+
+</html>
