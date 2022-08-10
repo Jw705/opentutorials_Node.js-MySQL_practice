@@ -10,8 +10,8 @@ router.get('/login', function (request, response) {
     var html = template.HTML(title, ``, `
             <h2>로그인</h2>
             <form action="/auth/login_process" method="post">
-            <p><input class="login" type="text" name="username" placeholder="이름(ex: 홍길동)"></p>
-            <p><input class="login" type="password" name="pwd" placeholder="전화번호(ex: 01012345678)"></p>
+            <p><input class="login" type="text" name="username" placeholder="아이디"></p>
+            <p><input class="login" type="password" name="pwd" placeholder="비밀번호"></p>
             <p><input class="btn" type="submit" value="로그인"></p>
             </form>            
             <p>계정이 없으신가요?  <a href="/auth/register">회원가입</a></p> 
@@ -41,7 +41,7 @@ router.post('/login_process', function (request, response) {
         });
 
     } else {
-        response.send(`<script type="text/javascript">alert("username과 password를 입력하세요!"); 
+        response.send(`<script type="text/javascript">alert("아이디와 비밀번호를 입력하세요!"); 
         document.location.href="/auth/login";</script>`);    
     }
 });
